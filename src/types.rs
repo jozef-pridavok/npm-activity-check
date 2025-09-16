@@ -7,46 +7,15 @@ pub struct NpmPackageInfo {
     pub description: Option<String>,
     #[serde(rename = "dist-tags")]
     pub dist_tags: std::collections::HashMap<String, String>,
-    pub versions: std::collections::HashMap<String, NpmVersionInfo>,
+    pub versions: std::collections::HashMap<String, serde_json::Value>,
     pub time: std::collections::HashMap<String, DateTime<Utc>>,
     pub maintainers: Option<serde_json::Value>,
     pub keywords: Option<Vec<String>>,
     pub homepage: Option<String>,
-    pub repository: Option<NpmRepository>,
+    pub repository: Option<serde_json::Value>,
     pub license: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct NpmVersionInfo {
-    pub version: String,
-    pub description: Option<String>,
-    pub main: Option<String>,
-    pub scripts: Option<std::collections::HashMap<String, String>>,
-    pub dependencies: Option<std::collections::HashMap<String, String>>,
-    #[serde(rename = "devDependencies")]
-    pub dev_dependencies: Option<std::collections::HashMap<String, String>>,
-    pub engines: Option<std::collections::HashMap<String, String>>,
-    pub dist: NpmDist,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct NpmDist {
-    pub shasum: String,
-    pub tarball: String,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct NpmMaintainer {
-    pub name: String,
-    pub email: Option<String>,
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct NpmRepository {
-    #[serde(rename = "type")]
-    pub repo_type: Option<String>,
-    pub url: Option<String>,
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct NpmDownloadStats {

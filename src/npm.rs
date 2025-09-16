@@ -85,13 +85,4 @@ impl NpmClient {
         Some((latest_version.clone(), publish_date))
     }
 
-    pub fn get_total_versions(&self, package_info: &NpmPackageInfo) -> usize {
-        package_info.versions.len()
-    }
-
-    pub fn has_recent_activity(&self, last_publish_date: &DateTime<Utc>, days_threshold: i64) -> bool {
-        let now = Utc::now();
-        let threshold = now - chrono::Duration::days(days_threshold);
-        *last_publish_date > threshold
-    }
 }

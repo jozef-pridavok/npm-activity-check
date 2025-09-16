@@ -14,8 +14,6 @@ pub fn create_package_report(
     weekly_downloads: u64,
     monthly_downloads: u64,
 ) -> PackageReport {
-    let scorer = PackageScorer::new();
-    
     let total_versions = package_info.versions.len();
     let maintainers_count = package_info.maintainers.as_ref()
         .and_then(|m| {
@@ -27,8 +25,8 @@ pub fn create_package_report(
         })
         .unwrap_or(0);
     
-    let has_recent_activity = scorer.has_recent_activity(last_publish_date, config.max_days);
-    let package_alive = scorer.is_package_alive(
+    let has_recent_activity = PackageScorer::has_recent_activity(last_publish_date, config.max_days);
+    let package_alive = PackageScorer::is_package_alive(
         last_publish_date,
         total_versions,
         maintainers_count,
@@ -49,7 +47,10 @@ pub fn create_package_report(
         package_alive,
         description: package_info.description.clone(),
         homepage: package_info.homepage.clone(),
-        repository_url: package_info.repository.as_ref().and_then(|r| r.url.clone()),
+        repository_url: package_info.repository.as_ref()
+            .and_then(|r| r.get("url"))
+            .and_then(|url| url.as_str())
+            .map(|s| s.to_string()),
         license: package_info.license.clone(),
         keywords: package_info.keywords.clone(),
     }
