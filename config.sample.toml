@@ -1,0 +1,20 @@
+# NPM Activity Check Configuration File
+# Copy this file to config.toml and customize as needed
+
+# Output format: "default", "json", or "field:FIELD_NAME"
+format = "default"
+
+# Maximum days since last publish to consider package active (default: 90)
+max_days = 90
+
+# Minimum weekly downloads threshold (default: 1000)
+min_weekly_downloads = 1000
+
+# Minimum monthly downloads threshold (default: 5000)
+min_monthly_downloads = 5000
+
+# Minimum total versions threshold (default: 10)
+min_versions = 10
+
+# Minimum maintainers threshold (default: 1)
+min_maintainers = 1
